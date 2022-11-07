@@ -168,8 +168,8 @@ abstract class _GetDownloadsImage implements DownloadsEvent {
 mixin _$DownloadsState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Downloads> get downloads => throw _privateConstructorUsedError;
-  dynamic get downloadsFailureOrSuccesOption =>
-      throw _privateConstructorUsedError;
+  Option<Either<MainFailure, List<Downloads>>>
+      get downloadsFailureOrSuccesOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DownloadsStateCopyWith<DownloadsState> get copyWith =>
@@ -185,7 +185,8 @@ abstract class $DownloadsStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<Downloads> downloads,
-      dynamic downloadsFailureOrSuccesOption});
+      Option<Either<MainFailure, List<Downloads>>>
+          downloadsFailureOrSuccesOption});
 }
 
 /// @nodoc
@@ -217,7 +218,7 @@ class _$DownloadsStateCopyWithImpl<$Res, $Val extends DownloadsState>
       downloadsFailureOrSuccesOption: null == downloadsFailureOrSuccesOption
           ? _value.downloadsFailureOrSuccesOption
           : downloadsFailureOrSuccesOption // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as Option<Either<MainFailure, List<Downloads>>>,
     ) as $Val);
   }
 }
@@ -233,7 +234,8 @@ abstract class _$$_DownloadsStateCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<Downloads> downloads,
-      dynamic downloadsFailureOrSuccesOption});
+      Option<Either<MainFailure, List<Downloads>>>
+          downloadsFailureOrSuccesOption});
 }
 
 /// @nodoc
@@ -262,7 +264,8 @@ class __$$_DownloadsStateCopyWithImpl<$Res>
               as List<Downloads>,
       downloadsFailureOrSuccesOption: null == downloadsFailureOrSuccesOption
           ? _value.downloadsFailureOrSuccesOption
-          : downloadsFailureOrSuccesOption,
+          : downloadsFailureOrSuccesOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<MainFailure, List<Downloads>>>,
     ));
   }
 }
@@ -286,7 +289,8 @@ class _$_DownloadsState implements _DownloadsState {
   }
 
   @override
-  final dynamic downloadsFailureOrSuccesOption;
+  final Option<Either<MainFailure, List<Downloads>>>
+      downloadsFailureOrSuccesOption;
 
   @override
   String toString() {
@@ -302,9 +306,10 @@ class _$_DownloadsState implements _DownloadsState {
                 other.isLoading == isLoading) &&
             const DeepCollectionEquality()
                 .equals(other._downloads, _downloads) &&
-            const DeepCollectionEquality().equals(
-                other.downloadsFailureOrSuccesOption,
-                downloadsFailureOrSuccesOption));
+            (identical(other.downloadsFailureOrSuccesOption,
+                    downloadsFailureOrSuccesOption) ||
+                other.downloadsFailureOrSuccesOption ==
+                    downloadsFailureOrSuccesOption));
   }
 
   @override
@@ -312,7 +317,7 @@ class _$_DownloadsState implements _DownloadsState {
       runtimeType,
       isLoading,
       const DeepCollectionEquality().hash(_downloads),
-      const DeepCollectionEquality().hash(downloadsFailureOrSuccesOption));
+      downloadsFailureOrSuccesOption);
 
   @JsonKey(ignore: true)
   @override
@@ -323,17 +328,18 @@ class _$_DownloadsState implements _DownloadsState {
 
 abstract class _DownloadsState implements DownloadsState {
   const factory _DownloadsState(
-          {required final bool isLoading,
-          required final List<Downloads> downloads,
-          required final dynamic downloadsFailureOrSuccesOption}) =
-      _$_DownloadsState;
+      {required final bool isLoading,
+      required final List<Downloads> downloads,
+      required final Option<Either<MainFailure, List<Downloads>>>
+          downloadsFailureOrSuccesOption}) = _$_DownloadsState;
 
   @override
   bool get isLoading;
   @override
   List<Downloads> get downloads;
   @override
-  dynamic get downloadsFailureOrSuccesOption;
+  Option<Either<MainFailure, List<Downloads>>>
+      get downloadsFailureOrSuccesOption;
   @override
   @JsonKey(ignore: true)
   _$$_DownloadsStateCopyWith<_$_DownloadsState> get copyWith =>

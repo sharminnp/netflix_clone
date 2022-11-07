@@ -47,7 +47,7 @@ class Section2 extends StatelessWidget {
           "Indroducing Downloads for you",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: kWhitecolor, fontSize: 24, fontWeight: FontWeight.bold),
+              color: kWhitecolor, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         kheight,
         const Text(

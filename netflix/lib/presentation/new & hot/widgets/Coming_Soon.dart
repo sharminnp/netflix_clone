@@ -6,8 +6,20 @@ import '../../home/widgets/custom_button_widget.dart';
 import '../../widgets/video_widget.dart';
 
 class Comingsoonwidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
   const Comingsoonwidget({
     Key? key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -23,12 +35,12 @@ class Comingsoonwidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "FEB",
+                month,
                 style: TextStyle(fontSize: 15, color: kgreycolor),
               ),
               Text(
-                "11",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                day,
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -39,43 +51,48 @@ class Comingsoonwidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              VideoWidget(),
+              VideoWidget(
+                Url: posterPath,
+              ),
               Row(
                 children: [
-                  Text(
-                    "TALL GIRL 2",
-                    style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      movieName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  Spacer(),
-                  Row(
-                    children: [
-                      CustomButtonWidget(
-                        icon: Icons.notifications,
-                        title: "Remind me",
-                        iconSize: 20,
-                        textSize: 15,
-                      ),
-                      kWidth,
-                      CustomButtonWidget(
-                          icon: Icons.info,
-                          title: "Info",
-                          iconSize: 20,
-                          textSize: 15),
-                      kWidth
-                    ],
-                  )
+                  const CustomButtonWidget(
+                    icon: Icons.notifications,
+                    title: "Remind me",
+                    iconSize: 20,
+                    textSize: 15,
+                  ),
+                  kWidth,
+                  const CustomButtonWidget(
+                      icon: Icons.info,
+                      title: "Info",
+                      iconSize: 20,
+                      textSize: 15),
+                  kWidth
                 ],
               ),
               kheight,
-              Text("Coming on Friday"),
+              Text("Coming on $day $month"),
               kheight,
               Text(
-                "Tall Girl 2",
+                movieName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               kheight,
               Text(
-                "Landing the lead in the school musical is dream come true for jodi,until the pressure sends her confidance-and her relationship-\nin to a tailspain",
+                description,
+                maxLines: 5,
                 style: TextStyle(color: kgreycolor),
               )
             ],

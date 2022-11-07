@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/application/home/home_bloc.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/home/main_title_card.dart';
@@ -15,10 +19,13 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<HomeBloc>(context).add(const GetHomeSreenData());
+    });
     return Scaffold(
         body: ValueListenableBuilder(
             valueListenable: scrollNotifier,
-            builder: (context, index, _) {
+            builder: (context, bool value, Widget? _) {
               return NotificationListener<UserScrollNotification>(
                 onNotification: (notification) {
                   final ScrollDirection direction = notification.direction;
@@ -32,24 +39,101 @@ class ScreenHome extends StatelessWidget {
                 },
                 child: Stack(
                   children: [
-                    ListView(
-                      children: [
-                        BagroundCard(),
-                        const MainTitleCard(
-                          title: 'Released in the Past Year',
-                        ),
-                        kheight,
-                        MainTitleCard(title: "Trending Now"),
-                        kheight,
-                        numberTileCard(),
-                        kheight,
-                        MainTitleCard(title: "Tense Dramas"),
-                        kheight,
-                        MainTitleCard(title: "South Indian cinema"),
-                        kheight,
-                      ],
+                    BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state.isLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ));
+                        } else if (state.hasError) {
+                          return const Center(
+                              child: Text(
+                            "Error While Getting data",
+                            style: TextStyle(color: Colors.white),
+                          ));
+                        }
+
+                        // _releasedPastYear.shuffle();
+                        //pastyear
+                        else {
+                          final List<String> _releasedPastYear =
+                              state.pastYearmovieList
+                                  .map((m) {
+                                    return '$imageAppendUrl${m.posterPath}';
+                                  })
+                                  .toList()
+                                  .reversed
+                                  .toList();
+
+                          // final List<String> pastYear =
+                          //     state.pastYearmovieList.map((m) {
+                          //   return '$imageAppendUrl${m.posterPath}';
+                          // }).toList();
+                          // pastYear.shuffle();
+                          //trending
+                          final List<String> _trending =
+                              state.trendingmovieList.map((m) {
+                            return '$imageAppendUrl${m.posterPath}';
+                          }).toList();
+                          // final List<String> trending =
+                          //     state.trendingmovieList.map((m) {
+                          //   return '$imageAppendUrl${m.posterPath}';
+                          // }).toList();
+                          // trending.shuffle();
+                          //tense dramas
+                          final List<String> tenseDaramas =
+                              state.tenseDramasmovieList
+                                  .map((m) {
+                                    return '$imageAppendUrl${m.posterPath}';
+                                  })
+                                  .toList()
+                                  .reversed
+                                  .toList();
+                          //tenseDaramas.shuffle();
+                          //southindian
+                          final List<String> southIndian =
+                              state.southindianmovieList.map((m) {
+                            return '$imageAppendUrl${m.posterPath}';
+                          }).toList();
+                          final _top10TvShow = state.trendingTvList.map((t) {
+                            return '$imageAppendUrl${t.posterPath}';
+                          }).toList();
+                          // _top10TvShow.shuffle();
+                          // southIndian.shuffle();
+                          log("shuffle build");
+                          return ListView(
+                            children: [
+                              BagroundCard(),
+                              kheight,
+                              MainTitleCard(
+                                title: 'Released in the Past Year',
+                                posterList: _releasedPastYear,
+                              ),
+                              kheight,
+                              MainTitleCard(
+                                  title: "Trending Now", posterList: _trending),
+                              kheight,
+                              numberTileCard(
+                                posterList: _top10TvShow,
+                              ),
+                              kheight,
+                              MainTitleCard(
+                                  title: "Tense Dramas",
+                                  posterList: tenseDaramas),
+                              kheight,
+                              MainTitleCard(
+                                  title: "South Indian cinema",
+                                  posterList: southIndian),
+                              kheight,
+                            ],
+                          );
+                        }
+                      },
                     ),
-                    (scrollNotifier.value == true)
+                    // (scrollNotifier.value == true)
+
+                    value
                         ? AnimatedContainer(
                             duration: Duration(microseconds: 1000),
                             width: double.infinity,
@@ -72,7 +156,11 @@ class ScreenHome extends StatelessWidget {
                                     ),
                                     kWidth,
                                     Container(
-                                      color: Colors.blue,
+                                      decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "https://i.pinimg.com/564x/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1.jpg"),
+                                              fit: BoxFit.contain)),
                                       width: 30,
                                       height: 30,
                                     ),

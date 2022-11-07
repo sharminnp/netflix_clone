@@ -11,7 +11,7 @@ final BorderRadius kradius10 = BorderRadius.circular(10);
 final BorderRadius kradius30 = BorderRadius.circular(30);
 //mainimage
 const KmainImage =
-    "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/saHP97rTPS5eLmrLQEcANmKrsFl.jpg";
+    "https://www.themoviedb.org/t/p/w440_and_h660_face/xDgnmbdWS59NtTPdzujdZGuPUPZ.jpg";
 //hometextstyle
 TextStyle KhomeTitleStyle =
     const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);

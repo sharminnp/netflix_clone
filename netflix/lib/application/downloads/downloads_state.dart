@@ -13,9 +13,9 @@ class DownloadsState with _$DownloadsState {
       isLoading: false,
       downloadsFailureOrSuccesOption: None(),
       downloads: [
-        Downloads(posterPath: ''),
-        Downloads(posterPath: ''),
-        Downloads(posterPath: ''),
+        Downloads(posterPath: '', title: ''),
+        Downloads(posterPath: '', title: ''),
+        Downloads(posterPath: '', title: ''),
       ],
     );
   }

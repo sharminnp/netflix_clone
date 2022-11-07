@@ -6,8 +6,14 @@ import '../../home/widgets/custom_button_widget.dart';
 import '../../widgets/video_widget.dart';
 
 class Everyones_watching_widget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
   const Everyones_watching_widget({
     Key? key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -17,16 +23,22 @@ class Everyones_watching_widget extends StatelessWidget {
       children: [
         kheight,
         Text(
-          "Friends",
+          movieName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         kheight,
         Text(
-          "This hit sitcom follows the merry misadventure of six 20-something palse as they navigate the pitfalls of work,life and love in 1990s Manhattan.",
+          description,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 5,
           style: TextStyle(color: kgreycolor),
         ),
         kheight50,
-        VideoWidget(),
+        VideoWidget(
+          Url: posterPath,
+        ),
         kheight,
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
